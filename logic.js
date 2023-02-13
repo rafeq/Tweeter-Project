@@ -19,12 +19,14 @@ const tweeterModule = function () {
             ]
         }
     ];
-    let PostIdCounter = 2;
-    let commentIdCounter = 6;
+    const COUNTER_HOLDER = {
+        PostIdCounter: 2,
+        commentIdCounter: 6
+    }
     const getPosts = () => _postsArray;
-    const addToPostArray = function(post) {
-        PostIdCounter += 1;
-        let postId = "p" + PostIdCounter;
+    const addPost = function(post) {
+        COUNTER_HOLDER.PostIdCounter += 1;
+        let postId = "p" + COUNTER_HOLDER.PostIdCounter;
         _postsArray.push({
             text: post,
             id: postId,
@@ -32,7 +34,7 @@ const tweeterModule = function () {
         })
     }
     const removePost = function (postID) {
-        PostIdCounter -= 1;
+        COUNTER_HOLDER.PostIdCounter -= 1;
         for(let i in _postsArray){
             if(postID == _postsArray[i].id) {
                 _postsArray.splice(i, 1);
@@ -40,8 +42,8 @@ const tweeterModule = function () {
         }
     }
     const addComment = function (comment, postID) {
-        commentIdCounter += 1;
-        commentId = "c" + commentIdCounter ;
+        COUNTER_HOLDER.commentIdCounter += 1;
+        commentId = "c" + COUNTER_HOLDER.commentIdCounter ;
         for(let post in _postsArray) {
             if(_postsArray[post].id == postID) {
                 _postsArray[post].comments.push({ id: commentId, text: comment})
@@ -50,18 +52,16 @@ const tweeterModule = function () {
     }
     const removeComment = function (commentID) {
         for(let post of _postsArray){
-            for(let comment in post.comments) {   
-                if(post.comments[comment].id == commentID) {
-                    post.comments.splice(comment, 1);
+            const POSTCOMMENTS = post.comments
+            for(let comment in POSTCOMMENTS) {   
+                if(POSTCOMMENTS[comment].id == commentID) {
+                    POSTCOMMENTS.splice(comment, 1);
                 }
             }
         }
     }
-
-
-
     return{
-        addPost: addToPostArray,
+        addPost: addPost,
         getPosts: getPosts,
         removePost: removePost,
         addComment: addComment,
