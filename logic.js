@@ -57,7 +57,7 @@ const tweeterModule = function () {
             }
         }
     }
-    const removeComment = function (commentID) {
+    const removeComment = function (commentID) {//nested loop
         for(let post of _postsArray){
             const POSTCOMMENTS = post.comments
             for(let comment in POSTCOMMENTS) {   
