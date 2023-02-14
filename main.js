@@ -9,6 +9,7 @@ $("#post").click(function () {
 })
 $('#posts').on("click", ".delete", function () {
     const postID = $(this).closest("div").attr("id");
+    console.log(postID);
     tweeter.removePost(postID)
     renderer(tweeter.getPosts())
 })

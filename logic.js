@@ -20,13 +20,22 @@ const tweeterModule = function () {
         }
     ];
     const COUNTER_HOLDER = {
-        PostIdCounter: 2,
-        commentIdCounter: 6
+        _PostIdCounter: 2,
+        _commentIdCounter: 6
+    }
+    const getPostByID = function (postID) {
+        for(let post in _postsArray) {
+            if(_postsArray[post].id == postID) {
+                return postID
+            }
+        postID = undefined;
+
+        }
     }
     const getPosts = () => _postsArray;
     const addPost = function(post) {
-        COUNTER_HOLDER.PostIdCounter += 1;
-        let postId = "p" + COUNTER_HOLDER.PostIdCounter;
+        COUNTER_HOLDER._PostIdCounter += 1;
+        let postId = "p" + COUNTER_HOLDER._PostIdCounter;
         _postsArray.push({
             text: post,
             id: postId,
@@ -34,16 +43,14 @@ const tweeterModule = function () {
         })
     }
     const removePost = function (postID) {
-        COUNTER_HOLDER.PostIdCounter -= 1;
-        for(let i in _postsArray){
-            if(postID == _postsArray[i].id) {
-                _postsArray.splice(i, 1);
+        COUNTER_HOLDER._PostIdCounter -= 1;
+            if(getPostByID(postID)) {
+                _postsArray.splice(postID, 1);
             }
-        }
     }
     const addComment = function (comment, postID) {
-        COUNTER_HOLDER.commentIdCounter += 1;
-        commentId = "c" + COUNTER_HOLDER.commentIdCounter ;
+        COUNTER_HOLDER._commentIdCounter += 1;
+        commentId = "c" + COUNTER_HOLDER._commentIdCounter ;
         for(let post in _postsArray) {
             if(_postsArray[post].id == postID) {
                 _postsArray[post].comments.push({ id: commentId, text: comment})
@@ -68,6 +75,3 @@ const tweeterModule = function () {
         removeComment: removeComment
     }
 }
-
-
-

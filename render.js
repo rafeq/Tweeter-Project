@@ -11,7 +11,7 @@ const renderer = function (posts) {
     }
     const addPost = function (posts) {
         for(let post of posts) {
-            $("#posts").append(`<div id="${post.id}">
+            $("#posts").append(`<div id="${post.id}" data="${post.id}">
             <button class="delete">x</button>
             <div class="post">${post.text}</div>
             ${addComment(post)}
